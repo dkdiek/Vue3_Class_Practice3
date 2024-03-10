@@ -4,11 +4,18 @@
   <childComponent @send-event="parentEvent" />
 </template>
 <!-- 컴포지션 api는 setup이란게 붙어야함 -->
-<script setup lang="ts">
+<script>
 import ChildComponent from "./components/ChildComponent.vue";
 
-const parentEvent = (event: string) => {
-  console.log(event);
+export default {
+  components: {
+    ChildComponent,
+  },
+  methods: {
+    parentEvent(event) {
+      console.log(event);
+    },
+  },
 };
 </script>
 
