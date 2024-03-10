@@ -1,46 +1,36 @@
-<
 <template>
-  <div>
-    <h1>{{ text }}</h1>
-    <!-- method는 3번 실행된다 -->
-    <h1>changeText 함수 호출 값:{{ changeText() }}</h1>
-    <h1>changeText 함수 호출 값:{{ changeText() }}</h1>
-    <h1>changeText 함수 호출 값:{{ changeText() }}</h1>
-    <!-- computed는 함수 모양이지만 데이터이기때문에 ()붙이지않는다 -->
-    <!-- computed는 한번만 실행된다 -->
-    <h2>{{ computedText }}</h2>
-    <h2>{{ computedText }}</h2>
-    <h2>{{ computedText }}</h2>
-  </div>
+  <button @click="changeMessage">{{ message }}</button>
+  {{ watchMessage }}
 </template>
 
 <script>
 export default {
   data() {
     return {
-      text: "Computed test data",
+      message: "안녕하세요 watch기능테스트 오리지널 문구",
+      watchMessage: "",
     };
   },
-  // method 부분에 선언된 함수와 동일한 로직일때,
-  // 캐싱 기능이 없는 methods는 호출될때마다 console값이 출력되었음
-  computed: {
-    computedText() {
-      console.log("computed call");
-      console.log(this.text);
-
-      return this.text.split("").reverse().join("");
+  watch: {
+    /* message란 변수를 지켜보고있다 변경이 있으면 실행
+      데이터 뿐만 아니라 computed로 계산된 형태의 데이터도 watch로 감지할 수 있다.
+      보통 게시판에서 한 컬럼을 선택하였을때, 고유한 id값이 바뀜을 감지하고
+      이때, 그id값에 상세데이터를 호출할때 주로사용한다
+    */
+    message() {
+      this.watchMessage = "watch 동작";
+    },
+    id() {
+      //해당 상세데이터를 조회하는 api호출
     },
   },
   methods: {
-    changeText() {
-      console.log("function call");
-      console.log(this.text);
-
-      return this.text.split("").reverse().join("");
+    changeMessage() {
+      console.log("함수호출");
+      this.message = "변경된 message입니다";
     },
   },
 };
 </script>
 
 <style></style>
->
