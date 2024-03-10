@@ -1,12 +1,16 @@
 <
 <template>
   <div>
-    <!-- 인라인 핸들러-템플릿에서 처리
-    <button @click="count++">인라인핸들러</button>
-    <h1>{{ count }}</h1> -->
-    <!-- 메소드 핸들러 - 스크립트에서 처리 -->
-    <button @click="changeName">메소드핸들러</button>
-    <h1>{{ name }}</h1>
+    <h1>{{ text }}</h1>
+    <!-- method는 3번 실행된다 -->
+    <h1>changeText 함수 호출 값:{{ changeText() }}</h1>
+    <h1>changeText 함수 호출 값:{{ changeText() }}</h1>
+    <h1>changeText 함수 호출 값:{{ changeText() }}</h1>
+    <!-- computed는 함수 모양이지만 데이터이기때문에 ()붙이지않는다 -->
+    <!-- computed는 한번만 실행된다 -->
+    <h2>{{ computedText }}</h2>
+    <h2>{{ computedText }}</h2>
+    <h2>{{ computedText }}</h2>
   </div>
 </template>
 
@@ -14,13 +18,25 @@
 export default {
   data() {
     return {
-      count: 0,
-      name: "Vue.js",
+      text: "Computed test data",
     };
   },
+  // method 부분에 선언된 함수와 동일한 로직일때,
+  // 캐싱 기능이 없는 methods는 호출될때마다 console값이 출력되었음
+  computed: {
+    computedText() {
+      console.log("computed call");
+      console.log(this.text);
+
+      return this.text.split("").reverse().join("");
+    },
+  },
   methods: {
-    changeName() {
-      this.name = "변경된 데이터입니다.";
+    changeText() {
+      console.log("function call");
+      console.log(this.text);
+
+      return this.text.split("").reverse().join("");
     },
   },
 };
