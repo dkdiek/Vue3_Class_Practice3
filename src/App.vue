@@ -1,20 +1,26 @@
 <template>
-  부모컴포넌트 레이아웃
-  <!-- 자식컴포넌트에서 emit한걸 send-even로 받는다 parentEvent를 실행한다 -->
-  <childComponent @send-event="parentEvent" />
+  <div>
+    <input type="text" name="" id="" v-model="inputValue1" />
+    {{ inputValue1 }}
+  </div>
+  <div>
+    <!-- 한글은 아래와 같이 반영해야 바로바로 보인다 -->
+    <input
+      type="text"
+      :value="inputValue2"
+      @input="inputValue2 = $event.target.value"
+    />
+    {{ inputValue2 }}
+  </div>
 </template>
-<!-- 컴포지션 api는 setup이란게 붙어야함 -->
-<script>
-import ChildComponent from "./components/ChildComponent.vue";
 
+<script>
 export default {
-  components: {
-    ChildComponent,
-  },
-  methods: {
-    parentEvent(event) {
-      console.log(event);
-    },
+  data() {
+    return {
+      inputValue1: "",
+      inputValue2: "",
+    };
   },
 };
 </script>
